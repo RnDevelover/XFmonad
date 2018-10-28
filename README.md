@@ -26,7 +26,7 @@ The keyboard shortcuts are as follows:
 The ordering of the tiling setups are as follows:
 <ol>
 <li>Master window on left, others on right</li>
-<li>Master window on top, other at bottom</li>
+<li>Master window on top, others at bottom</li>
 <li>Only master window in full screen with left and top panels</li>
 <li>Only master window in full screen (useful for watching full screen video)</li>
 </ol>
