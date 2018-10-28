@@ -49,3 +49,11 @@ After running the script, you will have a desktop environment that looks like th
 
 <p><a href="https://2.bp.blogspot.com/-NIOc9W7e_ZM/W9XgbZ4PNOI/AAAAAAAAQ08/zv9V1cZ-U7EBYrLFwkijGoxgQwOqY7FoACPcBGAYYCw/s1600/pic4.png" imageanchor="1" ><img border="0" src="https://2.bp.blogspot.com/-NIOc9W7e_ZM/W9XgbZ4PNOI/AAAAAAAAQ08/zv9V1cZ-U7EBYrLFwkijGoxgQwOqY7FoACPcBGAYYCw/s640/pic4.png" width="640" height="400" data-original-width="1280" data-original-height="800" /></a></p>
 
+<h3>Installation</h3>
+<ul>
+<li>Clone or download as an archive and extract.</li>
+<li>chdir XFmonad</li>
+<li>./mod.sh</li>
+<li>Reboot</li>
+</ul>
+
