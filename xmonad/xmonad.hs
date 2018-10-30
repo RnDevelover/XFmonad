@@ -34,10 +34,10 @@ instance LayoutClass l a => LayoutClass (Flip l) a where
     handleMessage (Flip l) = fmap (fmap Flip) . handleMessage l
     description (Flip l) = "Flip "++ description l
 
-myGmailApp="crx_kmhopmchchfpfdcdjodmpfaaphdclmlj"
-myWhatsappApp="crx_hnpfjngllnobngcgfapefoaidbinmjnm"
-myLinkedInApp="crx_ohghonlafcimfigiajnmhdklcbjlbfda"
-myTelegramApp="crx_hadgilakbfohcfcgfbioeeehgpkopaga"
+myGmailApp="mail.google.com"
+myWhatsappApp="web.whatsapp.com"
+myLinkedInApp="www.linkedin.com"
+myTelegramApp="web.telegram.org"
 
 myWorkspaces =["1:mail","2:buss","3:browser","4","5","6","7","8","9"]  
 
@@ -68,7 +68,7 @@ main = xmonad $ xfceConfig
 		appName =? myWhatsappApp --> doShift "1:mail",  
 		appName =? myLinkedInApp --> doShift "2:buss",  
 		appName =? myTelegramApp --> doShift "2:buss",  
-		className =? "Google-chrome" --> doShift "3:browser",
+		appName =? "google-chrome" --> doShift "3:browser",
 		className =? "insync.py" --> doFloat,
 		isFullscreen --> doFullFloat,
 		manageHook xfceConfig
