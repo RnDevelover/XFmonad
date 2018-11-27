@@ -30,8 +30,8 @@ xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
 gconftool --load dockbarx/dockbarx.xml
 pw=$(pwd)
 chdir ~ 
-tar -xzvf $pw/dockbarx/dockbarx.tar.gz
-chdir $pw
+tar -xzvf "$pw/dockbarx/dockbarx.tar.gz"
+cd "$pw"
 sudo cp launchers/gnome-terminal.desktop /usr/share/applications
 python3  /usr/share/xfpanel-switch/xfpanel-switch/xfpanel-switch.py load xfceSettings/panels.tar.bz2
 cat launchers/gnometerminalsettings.txt | dconf load /org/gnome/terminal/legacy/profiles:/
