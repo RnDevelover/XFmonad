@@ -5,7 +5,7 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 sudo apt-get update
 sudo apt-get install --no-install-recommends xfce4-dockbarx-plugin
 sudo apt-get install xmonad
-sudo apt-get install gnome-terminal zeitgeist python-xdg vala-panel-appmenu appmenu-gtk3-module appmenu-gtk2-module appmenu-qt gnome-terminal xmonad shutter xfce4-appmenu-plugin xfce4-systemload-plugin arc-theme vim xfpanel-switch google-chrome-stable
+sudo apt-get install gnome-terminal zeitgeist python-xdg vala-panel-appmenu appmenu-gtk3-module appmenu-gtk2-module appmenu-qt gnome-terminal xmonad shutter xfce4-appmenu-plugin xfce4-systemload-plugin arc-theme vim xfpanel-switch google-chrome-stable atril
 sudo cp xfceSettings/ubuntu-icon.png /usr/share/icons/ubuntu-icon.png
 mkdir ~/.xmonad
 mkdir ~/.config
