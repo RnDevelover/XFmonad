@@ -3,6 +3,7 @@
 import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.ManageHelpers
+--import XMonad.Hooks.SetWMName
 --import XMonad.Layout
 import XMonad.Layout.Reflect
 import XMonad.Layout.MultiToggle
@@ -10,6 +11,7 @@ import qualified Data.Map as M
 import XMonad.Util.EZConfig (additionalKeys)
 import System.IO
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.SetWMName
 import Control.Arrow ((***), second)
 import XMonad.Layout.ResizableTile --(MirrorShrink, MirrorExpand)
 --import XMonad.Layout.ResizableTile( MirrorResize( MirrorShrink ) )
@@ -38,8 +40,8 @@ myGmailApp="mail.google.com"
 myWhatsappApp="web.whatsapp.com"
 myLinkedInApp="www.linkedin.com"
 myTelegramApp="web.telegram.org"
-
-myWorkspaces =["1:mail","2:buss","3:browser","4","5","6","7","8","9"]  
+myExtraWorkspaces=[(xK_0, "10"),(xK_asterisk, "11"),(xK_minus, "12"),(xK_F1,"13"),(xK_F2,"14"),(xK_F3,"15"),(xK_F4,"16"),(xK_F5,"17"),(xK_F6,"18"),(xK_F7,"19"),(xK_F8,"20"),(xK_F9,"21"),(xK_F10,"22"),(xK_F11,"23"),(xK_F11,"24"),(xK_F12,"25")]
+myWorkspaces =["1","2","3","4","5","6","7","8","9"] ++ (map snd myExtraWorkspaces) 
 
 -- tiledLayout = Tall nmaster delta ratio
 --  where
@@ -55,34 +57,35 @@ main = xmonad $ xfceConfig
 	{
 	modMask = modMaskKey,
 	focusedBorderColor = "#9f343f" ,
-	normalBorderColor = "#2f343f" ,
+	normalBorderColor = "#0f141f" ,
 	terminal = "gnome-terminal",
 	borderWidth = 1,
 	focusFollowsMouse  = myFocusFollowsMouse,
+	startupHook = startupHook xfceConfig >> setWMName "LG3D",
 	manageHook = composeAll [
 	--		className =? "vlc" --> doFloat,
 	--		className =? "smplayer" --> doFloat,
 		className =? "Wrapper-2.0" -->doFloat,
 		resource  =? "desktop_window" --> doIgnore,
-		appName =? myGmailApp --> doShift "1:mail",  
-		appName =? myWhatsappApp --> doShift "1:mail",  
-		appName =? myLinkedInApp --> doShift "2:buss",  
-		appName =? myTelegramApp --> doShift "2:buss",  
-		appName =? "google-chrome" --> doShift "3:browser",
-		className =? "insync.py" --> doFloat,
+		appName =? myGmailApp --> doShift "1",  
+		appName =? myWhatsappApp --> doShift "2",  
+		appName =? myLinkedInApp --> doShift "3",  
+		appName =? myTelegramApp --> doShift "4",  
 		isFullscreen --> doFullFloat,
 		manageHook xfceConfig
   		],
 	workspaces = myWorkspaces,
 	layoutHook =  smartBorders (avoidStruts ( mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) 
-		resizeLayout ||| Mirror resizeLayout |||  Full ) |||  Full )--, ||| layoutHook xfceConfig
+		resizeLayout ||| Mirror resizeLayout |||  Full ) |||  Full ) --, ||| layoutHook xfceConfig
 	} `additionalKeys` myKeys
-
+--  layoutHook =  smartBorders (avoidStruts ( mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
+--                resizeLayout ||| Mirror resizeLayout |||  Full ) |||  Full )--, ||| layoutHook xfceConfig
 myKeys=	[
 	]
 	  ++
     	[
-	  ((modMaskKey .|. shiftMask, xK_u) , spawn "systemctl suspend" )
+	 ((modMaskKey .|. shiftMask, xK_s) , spawn "xfce4-screenshooter" )
+	,  ((modMaskKey .|. shiftMask, xK_u) , spawn "systemctl suspend" )
 	, ((modMaskKey .|. shiftMask, xK_x) , sendMessage $ Toggle REFLECTX )
 	, ((modMaskKey .|. shiftMask, xK_y) , sendMessage $ Toggle REFLECTY )
 --	, ((modMaskKey, xK_Left),  sendMessage MirrorExpand)
@@ -95,4 +98,11 @@ myKeys=	[
 	, ((modMaskKey, xK_Left),    prevWS)
 	, ((modMaskKey, xK_z), toggleWS)
 	]
+	++ [
+        ((modMaskKey, key), (windows $ W.greedyView ws))
+        | (key,ws) <- myExtraWorkspaces
+      ] ++ [
+        ((modMaskKey .|. shiftMask, key), (windows $ W.shift ws))
+        | (key,ws) <- myExtraWorkspaces
+      ]
 
