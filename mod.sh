@@ -21,7 +21,16 @@ sudo cp xmonad/startXmonad.sh /usr/share
 sudo chmod 777 /usr/share/startXmonad.sh
 cp xmonad/xmonad.hs ~/.xmonad
 xmonad --recompile
-xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
+mkdir ~/.themes
+cp themes/Red-on-Black.tar.gz ~/.themes
+pw=$(pwd)
+cd ~/.themes
+tar -xzvf Red-on-Black.tar.gz
+xfconf-query -c xsettings -p /Net/ThemeName -s "Red-on-Black"
+cd "$pw"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+wget -qO- https://git.io/papirus-folders-install | env PREFIX=/usr/local sh
+papirus-folders --color red
 xfconf-query -c xsettings -p /Gtk/Modules -n -t string -s "appmenu-gtk-module"
 xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true
 xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
