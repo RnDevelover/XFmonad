@@ -3,6 +3,7 @@
 sudo add-apt-repository -y ppa:linuxuprising/shutter
 sudo apt-get install xmonad
 sudo apt-get install xfpanel-switch
+sudo apt-get install qt5-style-plugins
 sudo apt-get install gnome-terminal zeitgeist python-xdg vala-panel-appmenu appmenu-gtk3-module appmenu-gtk2-module gnome-terminal xmonad shutter xfce4-appmenu-plugin xfce4-systemload-plugin arc-theme vim xfpanel-switch google-chrome-stable atril
 sudo cp xfceSettings/ubuntu-icon.png /usr/share/icons/ubuntu-icon.png
 mkdir ~/.xmonad
@@ -37,3 +38,5 @@ xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
 sudo cp launchers/gnome-terminal.desktop /usr/share/applications
 python3 /usr/share/xfce4-panel-profiles/xfce4-panel-profiles/xfce4-panel-profiles.py load xfceSettings/panels.tar.bz2
 cat launchers/gnometerminalsettings.txt | dconf load /org/gnome/terminal/legacy/profiles:/
+echo "style=GTK+" >>~/.config/Trolltech.conf
+sudo sh -c 'echo QT_QPA_PLATFORMTHEME=gtk2 >> /etc/environment'
