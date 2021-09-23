@@ -40,8 +40,8 @@ myGmailApp="mail.google.com"
 myWhatsappApp="web.whatsapp.com"
 myLinkedInApp="www.linkedin.com"
 myTelegramApp="web.telegram.org"
-myExtraWorkspaces=[(xK_0, "10"),(xK_asterisk, "11"),(xK_minus, "12"),(xK_F1,"13"),(xK_F2,"14"),(xK_F3,"15"),(xK_F4,"16"),(xK_F5,"17"),(xK_F6,"18"),(xK_F7,"19"),(xK_F8,"20"),(xK_F9,"21"),(xK_F10,"22"),(xK_F11,"23"),(xK_F11,"24"),(xK_F12,"25")]
-myWorkspaces =["1","2","3","4","5","6","7","8","9"] ++ (map snd myExtraWorkspaces) 
+myExtraWorkspaces=[(xK_0, "10"),(xK_F1, "11"),(xK_F2, "12"),(xK_F3,"13"),(xK_F4,"14"),(xK_F5,"15"),(xK_F6,"16"),(xK_F7,"17"),(xK_F8,"18"),(xK_F9,"19"),(xK_F10,"20"),(xK_F11,"21"),(xK_F12,"22"),(xK_Print,"23"),(xK_Scroll_Lock,"24"),(xK_Pause,"25")]
+myWorkspaces =["1","2","3","4","5","6","7","8","9"] ++ (map snd myExtraWorkspaces)
 
 -- tiledLayout = Tall nmaster delta ratio
 --  where
