@@ -24,7 +24,7 @@ import XMonad.Util.Run
 import XMonad.Layout.NoBorders
 
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = False
+myFocusFollowsMouse = True 
 
 modMaskKey = mod4Mask
 newtype Flip l a = Flip (l a) deriving (Show, Read)
