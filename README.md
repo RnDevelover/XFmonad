@@ -3,6 +3,9 @@
 I have compiled some useful features of three desktop environments into one desktop environment. The global menu which is effectively applied in the MacOS, the idea of left dock of Ubuntu, the lightweight-ness of XFCE, and the productive-ness of Xmonad, one of the tiling window managers. 
 
 I made a script that automatically turns Ubuntu based Xfce desktop to my configuration. I recommend trying this on a <a href="https://www.linuxliteos.com/">Linux Lite</a> installation. Alternatively, you could try installing it on an Ubuntu box with Xfce installed, or on Xubuntu. Feedbacks are all welcome about other distributions.
+
+Recently, I added a Fedora mod script. Simply run the modFedora.sh script to install in Fedora.
+
 Xmonad is configured using xmonad.hs in ~/.xmonad. According to the configuration, the mod key is set as Win/Cmd key. 
 The keyboard shortcuts are as follows:
 <br><br>
