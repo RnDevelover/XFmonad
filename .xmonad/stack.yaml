@@ -1,0 +1,14 @@
+resolver: lts-9.17
+
+packages:
+- './src'
+- './workspace/xmonad'
+- './workspace/xmonad-contrib'
+
+extra-deps: []
+
+flags: {}
+
+extra-package-dbs: []
+
+local-bin-path: .

@@ -1,0 +1,3 @@
+#!/bin/sh
+stack install
+mv $HOME/.xmonad/xmonad $HOME/.local/bin/xmonad

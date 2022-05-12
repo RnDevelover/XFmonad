@@ -1,3 +1,5 @@
+The following is the previous README. I am now updating my desktop environment
+
 # XFmonad
 
 I have compiled some useful features of three desktop environments into one desktop environment. The global menu which is effectively applied in the MacOS, the idea of left dock of Ubuntu, the lightweight-ness of XFCE, and the productive-ness of Xmonad, one of the tiling window managers. 
