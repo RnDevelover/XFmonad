@@ -50,7 +50,7 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
 		         , "-A", "5"
 		         , "-i", "<fn=2>\xf1e6</fn>"
 		         , "-O", "<fn=2><leftbar>  \xf1e6</fn> <timeleft>"
-		         , "-o", "<fn=2><leftbar></fn1> <timeleft>"
+		         , "-o", "<fn=2><leftbar></fn> <timeleft>"
 		         , "-H", "10", "-L", "7"
 		         ] 50 "batt0"
                         -- Time and date
