@@ -26,5 +26,6 @@ ln -s ~/.xmonad/scripts/setmonitor.sh ~/.local/bin/setmonitor.sh
 cd ~
 mv .xinitrc .xinitrc.bak
 ln -s .xmonad/.xinitrc
+ln -s .xmonad/.xsession
 echo "Xft.dpi: 120" >> .Xresources
 echo "alias ls='ls --color=always'" >> .bashrc
