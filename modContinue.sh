@@ -12,6 +12,7 @@ cargo build --release
 sudo cp target/release/alacritty /usr/bin
 cd ~/.xmonad
 cp -r $CWD/.xmonad/* .
+cp $CWD/.xmonad/.xinitrc .
 mkdir workspace
 cd workspace
 curl -sSL https://get.haskellstack.org/ | sh
@@ -23,6 +24,7 @@ stack install
 cd $CWD
 ln -s ~/.xmonad/scripts/setmonitor.sh ~/.local/bin/setmonitor.sh
 cd ~
+mv .xinitrc .xinitrc.bak
 ln -s .xmonad/.xinitrc
 echo "Xft.dpi: 120" >> .Xresources
 echo "alias ls='ls --color=always'" >> .bashrc
