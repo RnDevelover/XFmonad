@@ -21,3 +21,6 @@ stack init
 cd ..
 stack install
 cd $CWD
+ln -s ~/.xmonad/scripts/setmonitor.sh ~/.local/bin/setmonitor.sh
+cd ~
+ln -s .xmonad/.xinitrc
