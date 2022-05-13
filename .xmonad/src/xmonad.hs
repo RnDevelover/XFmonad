@@ -138,9 +138,7 @@ myStartupHook = do
           spawnOnce "nm-applet &"
           spawnOnce "xautolock -time 10 -locker 'xtrlock -b' &"
           spawnOnce "xfce4-power-manager &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --distancefr
-om top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transpar
-ent true --alpha 0 --tint 0x292d3e --height 22 "
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --distancefrom top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292d3e --height 22 "
           spawnOnce "feh --bg-scale .xmonad/pic/picture.jpg & "
           spawnOnce ".xmonad/scripts/post-start.sh &"
           -- spawnOnce "kak -d -s mysession &"
