@@ -24,3 +24,5 @@ cd $CWD
 ln -s ~/.xmonad/scripts/setmonitor.sh ~/.local/bin/setmonitor.sh
 cd ~
 ln -s .xmonad/.xinitrc
+echo "Xft.dpi: 120" >> .Xresources
+echo "alias ls='ls --color=always'" >> .bashrc

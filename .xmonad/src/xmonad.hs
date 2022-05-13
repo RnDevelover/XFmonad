@@ -130,17 +130,21 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 -- AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook :: X ()
+
 myStartupHook = do
-          spawnOnce "xrandr -s 1152x864"
+          spawnOnce "setmonitor.sh &"
           spawnOnce "nitrogen --restore &"
-          spawnOnce "picom &"
+          spawnOnce "picom --config ~/.xmonad/picom.conf &"
           spawnOnce "nm-applet &"
-          spawnOnce "volumeicon &"
           spawnOnce "xautolock -time 10 -locker 'xtrlock -b' &"
           spawnOnce "xfce4-power-manager &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --distancefrom top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --distancefr
+om top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transpar
+ent true --alpha 0 --tint 0x292d3e --height 22 "
+          spawnOnce "feh --bg-scale .xmonad/pic/picture.jpg & "
+          spawnOnce ".xmonad/scripts/post-start.sh &"
           -- spawnOnce "kak -d -s mysession &"
-          setWMName "LG3D"
+          --           setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- GRID SELECT
