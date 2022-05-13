@@ -4,7 +4,7 @@ sudo dnf copr enable skidnik/mononoki
 sudo dnf install fedora-workstation-repositories
 sudo dnf config-manager --set-enabled google-chrome
 sudo dnf groupinstall "Development Tools" "Development Libraries"
-sudo dnf install vim lightdm net-tools NetworkManager NetworkManager NetworkManager-openconnect NetworkManager-openconnect-gnome arc-theme lxappearance git htop pcmanfm xmobar feh fontawesome-fonts unzip mononoki-ttf-fonts arandr openssh system-config-printer cups xbacklight xfce4-power-manager xautolock pyxtrlock curl cmake pkg-config freetype-devel fontconfig-devel libXfixes-devel libxkbcommon-devel python3 pluma xterm picom nitrogen NetworkManager-vpnc NetworkManager-vpnc-gnome NetworkManager-openconnect NetworkManager-openconnect-gnome unzip google-chrome-stable
+sudo dnf install vim lightdm net-tools NetworkManager NetworkManager NetworkManager-openconnect NetworkManager-openconnect-gnome arc-theme lxappearance git htop pcmanfm xmobar feh fontawesome-fonts unzip mononoki-ttf-fonts arandr openssh system-config-printer cups xbacklight xfce4-power-manager xautolock pyxtrlock curl cmake pkg-config freetype-devel fontconfig-devel libXfixes-devel libxkbcommon-devel python3 pluma xterm picom nitrogen NetworkManager-vpnc NetworkManager-vpnc-gnome NetworkManager-openconnect NetworkManager-openconnect-gnome unzip google-chrome-stable alsa-lib-devel volumeicon
 cd ~
 mkdir .xmonad
 cd .xmonad
@@ -24,3 +24,8 @@ fc-cache -fv
 sudo ln -s /usr/bin/pyxtrlock /usr/bin/xtrlock
 cd $CWD
 ./modContinue.sh
+cd ~/.xmonad
+git clone https://github.com/jaor/xmobar.git
+cd xmobar
+git checkout tags/0.36
+echo "Install xmobar manually in .xmonad/xmobar. First disable alsa-mixer in stack.yaml and xmonad.cabal. then do stack install
