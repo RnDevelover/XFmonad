@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ./local/bin/xmonad
+exec .local/bin/xmonad

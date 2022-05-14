@@ -13,6 +13,7 @@ sudo cp target/release/alacritty /usr/bin
 cd ~/.xmonad
 cp -r $CWD/.xmonad/* .
 cp $CWD/.xmonad/.xinitrc .
+cp $CWD/.xmonad/.xsession .
 mkdir workspace
 cd workspace
 curl -sSL https://get.haskellstack.org/ | sh
