@@ -1,10 +1,5 @@
 echo "auto lo" >/etc/network/interface
 echo "iface lo inet loopback">>/etc/network/interfaces
-echo "[main]"> /etc/NetworkManager/NetworkManager.conf
-echo "plugins=ifupdown,keyfile" >>/etc/NetworkManager/NetworkManager.conf
-echo "">> /etc/NetworkManager/NetworkManager.conf
-echo "[ifupdown]" >>/etc/NetworkManager/NetworkManager.conf
-echo "managed=true" >> /etc/NetworkManager/NetworkManager.conf
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
 echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
