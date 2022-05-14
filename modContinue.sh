@@ -21,11 +21,11 @@ git clone --branch v0.16 https://github.com/xmonad/xmonad-contrib
 stack init
 cd ..
 stack install
-cd $CWD
-ln -s ~/.xmonad/scripts/setmonitor.sh ~/.local/bin/setmonitor.sh
 cd ~
 mv .xinitrc .xinitrc.bak
 ln -s .xmonad/.xinitrc
 ln -s .xmonad/.xsession
 echo "Xft.dpi: 120" >> .Xresources
 echo "alias ls='ls --color=always'" >> .bashrc
+cd ~/.xmonad
+./xmonad --recompile

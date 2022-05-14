@@ -132,7 +132,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 
 myStartupHook = do
-          spawnOnce "setmonitor.sh &"
+          spawnOnce ".xmonad/scripts/setmonitor.sh &"
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom --config ~/.xmonad/picom.conf &"
           spawnOnce "nm-applet &"
