@@ -7,7 +7,7 @@ mkdir Downloads
 cd Downloads
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt-get update
-sudo apt-get install vim suckless-tools build-essential lightdm net-tools network-manager network-manager-gnome network-manager-openconnect arc-theme lxappearance git htop pcmanfm volumeicon-alsa xmobar trayer xfce4-power-manager feh fonts-font-awesome ttf-ubuntu-font-family fonts-mononoki arandr ssh system-config-printer cups xbacklight xfce4-power-manager xautolock xtrlock curl cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 pluma xterm picom nitrogen network-manager-config-connectivity-debian network-manager-vpnc network-manager-vpnc-gnome network-manager-openconnect-gnome unzip libx11-dev libxrandr-dev libxft-dev xdotool wireless-tools wpasupplicant
+sudo apt-get install vim suckless-tools build-essential lightdm net-tools network-manager network-manager-gnome network-manager-openconnect arc-theme lxappearance git htop pcmanfm volumeicon-alsa xmobar trayer xfce4-power-manager feh fonts-font-awesome ttf-ubuntu-font-family fonts-mononoki arandr ssh system-config-printer cups xbacklight xfce4-power-manager xautolock xtrlock curl cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 pluma xterm picom nitrogen network-manager-config-connectivity-debian network-manager-vpnc network-manager-vpnc-gnome network-manager-openconnect-gnome unzip libx11-dev libxrandr-dev libxft-dev xdotool wireless-tools wpasupplicant alsa-tools firmware-intel-sound firmware-iwlwifi
 sleep 20
 sudo systemctl disable systemd-resolved
 sudo systemctl stop systemd-resolved
@@ -27,3 +27,5 @@ mkdir ~/.local/bin
 cd $CWD
 ./modContinue.sh
 sudo ./setupNetwork.sh
+echo "defaults.pcm.card 1">/etc/asound.conf
+echo "defaults.ctl.card 1">>/etc/asound.con
