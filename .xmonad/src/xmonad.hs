@@ -103,7 +103,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty -o font.size=18"   -- Sets default terminal
+myTerminal = "gnome-terminal"   -- Sets default terminal
 
 myBrowser :: String
 myBrowser = myTerminal ++ " -e lynx "  -- Sets lynx as browser for tree select
