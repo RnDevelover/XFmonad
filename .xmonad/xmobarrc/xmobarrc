@@ -1,3 +1,5 @@
+-- My xmobar config based on Derek Taylor's config
+
 -- Xmobar (http://projects.haskell.org/xmobar/)
 -- This is the default xmobar configuration for DTOS.
 -- This config is packaged in the DTOS repo as dtos-xmobar
@@ -62,5 +64,5 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/>   %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#51afef><fc=#51afef>%penguin%  <action=`alacritty -e htop`>%kernel%</action> </fc></box>    <box type=Bottom width=2 mb=2 color=#ecbe7b><fc=#ecbe7b><action=`alacritty -e htop`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff6c6b><fc=#ff6c6b><action=`alacritty -e htop`>%memory% %swap%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#a9a1e1><fc=#a9a1e1><action=`alacritty -e htop`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#98be65><fc=#98be65>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#46d9ff><fc=#46d9ff><action=`xterm -hold -geometry 20x8-0+0 -e cal`>%date%</action></fc></box>    <fc=#da8548><action=`xfce4-power-manager -c`>%batt0%</action></fc> %trayerpad%"
+       , template = " <icon=haskell_20.xpm/>   %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#51afef><fc=#51afef>%penguin%  <action=`alacritty -e htop`>%kernel%</action> </fc></box>    <box type=Bottom width=2 mb=2 color=#ecbe7b><fc=#ecbe7b><action=`alacritty -e htop`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff6c6b><fc=#ff6c6b><action=`alacritty -e htop`>%memory% %swap%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#a9a1e1><fc=#a9a1e1><action=`alacritty -e htop`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#98be65><fc=#98be65>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#46d9ff><fc=#46d9ff><action=`xterm -hold -geometry 20x8-0+0 -e gcal`>%date%</action></fc></box>    <fc=#da8548><action=`xfce4-power-manager -c`>%batt0%</action></fc> %trayerpad%"
          }

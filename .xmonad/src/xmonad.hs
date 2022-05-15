@@ -1,3 +1,5 @@
+-- My xmonad config based on Derek Taylo's config
+
 -- Xmonad is a dynamically tiling X11 window manager that is written and
 -- configured in Haskell. Official documentation: https://xmonad.org
 
@@ -101,7 +103,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty -o font.size=14"   -- Sets default terminal
+myTerminal = "alacritty -o font.size=18"   -- Sets default terminal
 
 myBrowser :: String
 myBrowser = myTerminal ++ " -e lynx "  -- Sets lynx as browser for tree select
@@ -142,7 +144,7 @@ myStartupHook = do
           spawnOnce "~/.xmonad/scripts/post-start.sh &"
           --spawnOnce "picom --config ~/.xmonad/picom.conf &"
           -- spawnOnce "kak -d -s mysession &"
-          --           setWMName "LG3D"
+          --setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- GRID SELECT
@@ -203,9 +205,9 @@ myApplications = [ ("Pluma", "pluma", "Pluma text editor")
 
 
 myBookmarks :: [(String, String, String)]
-myBookmarks = [ ("Gmail", myBrowser ++ "--app=https://mail.google.com", "Gmail")
-              , ("WhatsApp", myBrowser ++ "--app=https://web.whatsapp.com", "WhatsApp web")
-              , ("Slack", myBrowser ++ "--app=https://app.slack.comT", "Slack")
+myBookmarks = [ ("Gmail", "google-chrome-stable --app=https://mail.google.com", "Gmail")
+              , ("WhatsApp", "google-chrome-stable --app=https://web.whatsapp.com", "WhatsApp web")
+              , ("Slack", "google-chrome-stable --app=https://app.slack.com", "Slack")
               ]
 
 myConfigs :: [(String, String, String)]
@@ -564,11 +566,11 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                -- I've commented out the layouts I don't use.
-               myDefaultLayout =     tall
+               myDefaultLayout = noBorders monocle
+                                 ||| tall
                                  ||| magnify
-                                 ||| noBorders monocle
                                  ||| floats
-                                 -- ||| grid
+                                 ||| grid
                                  ||| noBorders tabs
                                  -- ||| spirals
                                  -- ||| threeCol
@@ -723,8 +725,8 @@ main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.xmonad/xmobarrc/xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 ~/.xmonad/xmobarrc/xmobarrc2"
-    xmproc2 <- spawnPipe "xmobar -x 2 ~/.xmonad/xmobarrc/xmobarrc1"
+--    xmproc1 <- spawnPipe "xmobar -x 1 ~/.xmonad/xmobarrc/xmobarrc2"
+--    xmproc2 <- spawnPipe "xmobar -x 2 ~/.xmonad/xmobarrc/xmobarrc1"
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
@@ -745,7 +747,7 @@ main = do
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
+                        { ppOutput = \x -> hPutStrLn xmproc0 x -- >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#c3e88d" "" .clickable               -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable   -- Hidden workspaces in xmobar
