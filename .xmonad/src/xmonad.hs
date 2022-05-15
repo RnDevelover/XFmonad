@@ -132,15 +132,15 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 
 myStartupHook = do
-          spawnOnce ".xmonad/scripts/setmonitor.sh &"
-          spawnOnce "nitrogen --restore &"
-          spawnOnce "picom --config ~/.xmonad/picom.conf &"
-          spawnOnce "nm-applet &"
-          spawnOnce "xautolock -time 10 -locker 'xtrlock -b' &"
-          spawnOnce "xfce4-power-manager &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --distancefrom top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292d3e --height 22 "
-          spawnOnce "feh --bg-scale .xmonad/pic/picture.jpg & "
-          spawnOnce ".xmonad/scripts/post-start.sh &"
+          spawnOnce "~/.xmonad/scripts/setmonitor.sh &"
+          spawnOnce "/usr/bin/nitrogen --restore &"
+          spawnOnce "/usr/bin/nm-applet &"
+          spawnOnce "/usr/bin/xautolock -time 10 -locker 'xtrlock -b' &"
+          spawnOnce "/usr/bin/xfce4-power-manager &"
+          spawnOnce "/usr/bin/trayer --edge top --align right --widthtype request --padding 6 --distancefrom top --margin 3  --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
+          spawnOnce "/usr/bin/feh --bg-scale ~/.xmonad/pic/picture.jpg & "
+          spawnOnce "~/.xmonad/scripts/post-start.sh &"
+          --spawnOnce "picom --config ~/.xmonad/picom.conf &"
           -- spawnOnce "kak -d -s mysession &"
           --           setWMName "LG3D"
 
@@ -183,14 +183,14 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 -- TreeSelect uses all three values in the 3-tuples but GridSelect only needs first
 -- two values in each list (see myAppGrid, myBookmarkGrid and myConfigGrid below).
 myApplications :: [(String, String, String)]
-myApplications = [ ("Audacity", "audacity", "Graphical cross-platform audio eidtor")
+myApplications = [ ("Pluma", "pluma", "Pluma text editor")
+                 , ("Audacity", "audacity", "Graphical cross-platform audio eidtor")
                  , ("Deadbeef", "deadbeef", "Lightweight GUI audio player")
-                 , ("Emacs", "emacs", "Much more than a text editor")
-                 , ("Firefox", "firefox", "The famous open source web browser")
+                 , ("Chrome", "google-chrome-stable", "Google chrome web browser")
                  , ("Geany", "geany", "A nice text editor")
                  , ("Geary", "geary", "Email client that is attractive")
                  , ("Gimp", "gimp", "Open source alternative to Photoshop")
-                 , ("Kdenlive", "kdenlive", "A great open source video editor")
+                 , ("Shut down", "kdenlive", "A great open source video editor")
                  , ("LibreOffice Impress", "loimpress", "For making presentations")
                  , ("LibreOffice Writer", "lowriter", "A fully featured word processor")
                  , ("OBS", "obs", "Open broadcaster software")
@@ -198,37 +198,19 @@ myApplications = [ ("Audacity", "audacity", "Graphical cross-platform audio eidt
                  , ("Simple Terminal", "st", "Suckless simple terminal")
                  , ("Steam", "steam", "Proprietary gaming platform")
                  , ("Surf Browser", "surf suckless.org", "Suckless surf web browser")
-                 , ("Xonotic", "xonotic-glx", "A fast-paced first person shooter")
+                 , ("Suspend", "systemctl suspend", "Suspend")
                  ]
 
+
 myBookmarks :: [(String, String, String)]
-myBookmarks = [ ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+myBookmarks = [ ("Gmail", myBrowser ++ "--app=https://mail.google.com", "Gmail")
+              , ("WhatsApp", myBrowser ++ "--app=https://web.whatsapp.com", "WhatsApp web")
+              , ("Slack", myBrowser ++ "--app=https://app.slack.comT", "Slack")
               ]
 
 myConfigs :: [(String, String, String)]
 myConfigs = [ ("bashrc", myEditor ++ "~/.bashrc", "the bourne again shell")
-            , ("doom emacs config.el", myEditor ++ "~/.doom.d/config.el", "doom emacs config")
-            , ("doom emacs init.el", myEditor ++ "~/.doom.d/init.el", "doom emacs init")
-            , ("dwm", myEditor ++ "~/dwm-distrotube/config.h", "dwm config file")
-            , ("qtile", myEditor ++ "~/.config/qtile/config.py", "qtile config")
-            , ("xmonad.hs", myEditor ++ "~/.xmonad/xmonad.hs", "xmonad config")
-            , ("zshrc", myEditor ++ "~/.zshrc", "config for the z shell")
+            , ("xmonad.hs", myEditor ++ "~/.xmonad/src/xmonad.hs", "xmonad config")
             ]
 
 -- Let's take myApplications, myBookmarks and myConfigs and take only
@@ -259,7 +241,7 @@ treeselectAction a = TS.treeselectAction a
                       (spawn $ TE.snd3 $ myApplications !! n)
            ) [] | n <- [0..(length myApplications - 1)]
      ]
-   , Node (TS.TSNode "bookmarks" "a list of web bookmarks" (return ()))
+   , Node (TS.TSNode "Web-page apps" "a list of web-page-apps" (return ()))
      [Node (TS.TSNode(TE.fst3 $ myBookmarks !! n)
                      (TE.thd3 $ myBookmarks !! n)
                      (spawn $ TE.snd3 $ myBookmarks !! n)
@@ -486,15 +468,15 @@ myManageHook = composeAll
      -- I'm doing it this way because otherwise I would have to write out
      -- the full name of my clickable workspaces, which would look like:
      -- doShift "<action xdotool super+8>gfx</action>"
-     [ className =? "obs"     --> doShift ( "video.obs" )
-     , title =? "firefox"     --> doShift ( "web.browser" )
-     , title =? "qutebrowser" --> doShift ( "web.browser" )
-     , className =? "mpv"     --> doShift ( "video.movie player" )
-     , className =? "vlc"     --> doShift ( "video.movie player" )
-     , className =? "Gimp"    --> doShift ( "graphics.gimp")
-     , className =? "Gimp"    --> doFloat
-     , title =? "Oracle VM VirtualBox Manager"     --> doFloat
-     , className =? "VirtualBox Manager" --> doShift  ( "dev.virtualization" )
+     [-- className =? "obs"     --> doShift ( "video.obs" )
+     --, title =? "firefox"     --> doShift ( "web.browser" )
+     --, title =? "qutebrowser" --> doShift ( "web.browser" )
+     --, className =? "mpv"     --> doShift ( "video.movie player" )
+     --, className =? "vlc"     --> doShift ( "video.movie player" )
+     --, className =? "Gimp"    --> doShift ( "graphics.gimp")
+     --, className =? "Gimp"    --> doFloat
+     title =? "Oracle VM VirtualBox Manager"     --> doFloat
+     --, className =? "VirtualBox Manager" --> doShift  ( "dev.virtualization" )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -627,8 +609,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
+        [ ("M-C-r", spawn "~/.local/bin/xmonad --recompile")      -- Recompiles xmonad
+        , ("M-S-r", spawn "~/.local/bin/xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
 
     -- Open my preferred terminal
@@ -702,35 +684,12 @@ myKeys =
         , ("M-u l", spawn "mocp --next")
         , ("M-u h", spawn "mocp --previous")
         , ("M-u <Space>", spawn "mocp --toggle-pause")
+
+    --  Lock screen
         , ("C-M1-l", spawn "xtrlock -b")
 
-    -- Emacs (CTRL-e followed by a key)
-        , ("C-e e", spawn "emacsclient -c -a ''")                            -- start emacs
-        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")         -- list emacs buffers
-        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")       -- dired emacs file manager
-        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")            -- mu4e emacs email client
-        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")          -- elfeed emacs rss client
-        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")          -- eshell within emacs
-        , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'") -- eshell within emacs
-        -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
-        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
-
     --- My Applications (Super+Alt+Key)
-        , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
-        , ("M-M1-b", spawn "surf www.youtube.com/c/DistroTube/")
-        , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
-        , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
-        , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
-        , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
-        , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
-        , ("M-M1-m", spawn (myTerminal ++ " -e mocp"))
-        , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
-        , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
-        , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
-        , ("M-M1-t", spawn (myTerminal ++ " -e toot curses"))
-        , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
-        , ("M-M1-y", spawn (myTerminal ++ " -e youtube-viewer"))
-
+--        , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")
         , ("<XF86AudioPrev>", spawn "cmus prev")
@@ -738,10 +697,10 @@ myKeys =
         -- , ("<XF86AudioMute>",   spawn "amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "firefox")
-        , ("<XF86Search>", safeSpawn "firefox" ["https://www.google.com/"])
+        , ("<XF86HomePage>", spawn "google-chrome-stable")
+        , ("<XF86Search>", safeSpawn "google-chrome-stable" ["https://www.google.com/"])
         , ("<XF86Mail>", runOrRaise "geary" (resource =? "thunderbird"))
-        , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
+        , ("<XF86Calculator>", runOrRaise "gnome-calculator" (resource =? "gnome-calculator"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "scrotd 0")
         ]
