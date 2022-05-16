@@ -1,0 +1,66 @@
+-- Xmobar (http://projects.haskell.org/xmobar/)
+-- This is the default xmobar configuration for DTOS.
+-- This config is packaged in the DTOS repo as dtos-xmobar
+-- Dependencies: otf-font-awesome ttf-mononoki ttf-ubuntu-font-family trayer
+-- Also depends on scripts from dtos-local-bin from the dtos-core-repo.
+
+Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki:pixelsize=11:antialias=true:hinting=true"
+                           , "xft:fontawesome-webfont Solid:pixelsize=12"
+                           , "xft:fontawesome-webfont 6 Brands:pixelsize=12"
+                           ]
+       , bgColor      = "#282c34"
+       , fgColor      = "#ff6c6b"
+       -- Position TopSize and BottomSize take 3 arguments:
+       --   an alignment parameter (L/R/C) for Left, Right or Center.
+       --   an integer for the percentage width, so 100 would be 100%.
+       --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
+       --   NOTE: The height should be the same as the trayer (system tray) height.
+       , position       = TopSize L 100 24
+       , lowerOnStart = True
+       , hideOnStart  = False
+       , allDesktops  = True
+       , persistent   = True
+       , iconRoot     = ".xmonad/xpm"  -- default: "."
+       , commands = [
+                        -- Echos a "penguin" icon in front of the kernel output.
+                      Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
+                        -- Get kernel version (script found in .local/bin)
+                    , Run Com ".xmonad/scripts/kernel" [] "kernel" 36000
+                        -- Cpu usage in percent
+                    , Run Cpu ["-t", "<fn=2>\xf108</fn> (<total>%)","-H","50","--high","red"] 20
+                    -- Ram used number and percent
+                    , Run Memory ["-t", "<fn=2>\xf233</fn> <used>M (<usedratio>%)"] 20
+                    , Run Swap ["-t", "S: <usedratio>%"] 20
+                    -- Disk space free
+                    , Run DiskU [("/", "<fn=2>\xf0c7</fn> <free> free")] [] 60
+                        -- Echos an "up arrow" icon in front of the uptime output.
+                    , Run Com "echo" ["<fn=2>\xf0aa</fn>"] "uparrow" 3600
+                        -- Uptime
+                    , Run Uptime ["-t", "<days>d <hours>h"] 360
+                        -- Echos a "battery" icon in front of the pacman updates.
+                    , Run BatteryN ["BAT0"] ["-t", "<acstatus>"
+		         , "-S", "Off", "-d", "0", "-m", "3"
+		         , "-L", "10", "-H", "90", "-p", "3"
+		         , "-W", "0"
+		         , "-f", "\xf244\xf243\xf243\xf243\xf242\xf242\xf242\xf241\xf241\xf240"
+		         , "--"
+		         , "-P"
+		         , "-a", "notify-send -u critical 'Battery running out!!!!!!'"
+		         , "-A", "5"
+		         , "-i", "<fn=2>\xf1e6</fn>"
+		         , "-O", "<fn=2><leftbar>  \xf1e6</fn> <timeleft>"
+		         , "-o", "<fn=2><leftbar></fn> <timeleft>"
+		         , "-H", "10", "-L", "7"
+		         ] 50 "batt0"
+                        -- Time and date
+                    , Run Date "<fn=2>\xf017</fn>  %b %d %Y - (%H:%M) " "date" 50
+                        -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
+                    , Run Com ".xmonad/scripts/trayer-padding-icon.sh" [] "trayerpad" 20
+                        -- Prints out the left side items such as workspaces, layout, etc.
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <icon=haskell_20.xpm/>   %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#51afef><fc=#51afef>%penguin%  <action=`alacritty -e htop`>%kernel%</action> </fc></box>    <box type=Bottom width=2 mb=2 color=#ecbe7b><fc=#ecbe7b><action=`alacritty -e htop`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff6c6b><fc=#ff6c6b><action=`alacritty -e htop`>%memory% %swap%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#a9a1e1><fc=#a9a1e1><action=`alacritty -e htop`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#98be65><fc=#98be65>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#46d9ff><fc=#46d9ff><action=`xterm -hold -geometry 20x8-0+0 -e cal`>%date%</action></fc></box>    <fc=#da8548><action=`xfce4-power-manager -c`>%batt0%</action></fc> %trayerpad%"
+         }
