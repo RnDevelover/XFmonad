@@ -639,7 +639,7 @@ myKeys =
 
     -- Tree Select/
         -- tree select actions menu
-        , ("C-t a", treeselectAction tsDefaultConfig)
+        , ("C-m a", treeselectAction tsDefaultConfig)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
