@@ -17,11 +17,17 @@ cp $CWD/.xmonad/.xsession .
 mkdir workspace
 cd workspace
 curl -sSL https://get.haskellstack.org/ | sh
-git clone --branch v0.15 https://github.com/xmonad/xmonad
-git clone --branch v0.16 https://github.com/xmonad/xmonad-contrib
+git clone https://github.com/xmonad/xmonad
+git clone https://github.com/RnDevelover/xmonad-contrib.git
+cd xmonad
+git checkout tags/v0.17.0
+cd ..
+cd xmonad-contrib
+git switch my_updates 
+cd ..
 stack init
 cd ..
-stack install
+./build
 cd ~
 mv .xinitrc .xinitrc.bak
 mv .xsession .xsession.bak
