@@ -1,0 +1,9 @@
+#!/bin/bash
+num="$1"
+num=${num:1:1000}
+if [ "$num" -lt "11" ]; then
+   xdotool key 'Super_L+w' && xdotool key "Super_L+$num"
+else
+   num=$((num-10))
+   xdotool key 'Super_L+e' && xdotool key "Super_L+$num"  
+fi

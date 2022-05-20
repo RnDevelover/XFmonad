@@ -1,3 +1,2 @@
 #!/bin/bash
-echo "mem" > /sys/power/state
-xrandr -s 1152x864
+systemctl suspend
