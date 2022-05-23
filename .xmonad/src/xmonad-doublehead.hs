@@ -37,9 +37,11 @@ import Data.Char (isSpace)
 import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
+import Data.List
 import Data.Tree
 import qualified Data.Tuple.Extra as TE
 import qualified Data.Map as M
+import Data.List.Utils (replace)
 
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
@@ -50,6 +52,8 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+--import XMonad.Hooks.StatusBar
+--import XMonad.Hooks.StatusBar.PP
 
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
@@ -72,6 +76,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.IndependentScreens
 
     -- Prompt
 import XMonad.Prompt
@@ -90,6 +95,8 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
+    -- Multiple Independent Screens
+-- import XMonad.Layout.IndependentScreens
 ------------------------------------------------------------------------
 -- VARIABLES
 ------------------------------------------------------------------------
@@ -114,13 +121,13 @@ myEditor = "pluma "  -- Sets emacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
 myBorderWidth :: Dimension
-myBorderWidth = 2          -- Sets border width for windows
+myBorderWidth = 1          -- Sets border width for windows
 
 myNormColor :: String
 myNormColor   = "#292d3e"  -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "#bbc5ff"  -- Border color of focused windows
+myFocusColor  = "#9f343f" --"#bbc5ff"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
@@ -449,10 +456,10 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 
-myWorkspaces = ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9"]
+myWorkspaces = withScreens 2 ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
-clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+clickable ws = "<action=~/.xmonad/scripts/switch '+"++show i++"' >"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 ------------------------------------------------------------------------
@@ -508,12 +515,12 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 -- Defining a bunch of layouts, many that I don't use.
 tall     = renamed [Replace "tall"]
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 0
            $ ResizableTall 1 (3/100) (1/2) []
 magnify  = renamed [Replace "magnify"]
            $ magnifier
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 0
            $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
            $ limitWindows 20 Full
@@ -521,11 +528,11 @@ floats   = renamed [Replace "floats"]
            $ limitWindows 20 simplestFloat
 grid     = renamed [Replace "grid"]
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 0
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 spirals  = renamed [Replace "spirals"]
-           $ mySpacing' 8
+           $ mySpacing' 0
            $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
            $ limitWindows 7
@@ -533,7 +540,7 @@ threeCol = renamed [Replace "threeCol"]
            $ ThreeCol 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
            $ limitWindows 7
-           $ mySpacing' 4
+           $ mySpacing' 0
            -- Mirror takes a layout and rotates it by 90 degrees.
            -- So we are applying Mirror to the ThreeCol layout.
            $ Mirror
@@ -568,7 +575,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                -- I've commented out the layouts I don't use.
                myDefaultLayout = noBorders monocle
                                  ||| tall
-                                 ||| magnify
+                                 ||| Main.magnify
                                  ||| floats
                                  ||| grid
                                  ||| noBorders tabs
@@ -714,13 +721,37 @@ myKeys =
         -- Look at "xprompt settings" section this of config for values for "k".
         ++ [("M-p " ++ k, f dtXPConfig') | (k,f) <- promptList ]
         ++ [("M-p " ++ k, f dtXPConfig' g) | (k,f,g) <- promptList' ]
+        -- The following is to assign workspaces to screens
+--        ++ [("M-" ++ show k, windows $ onCurrentScreen W.view i) | (k, i) <- zip [1 .. 9] (workspaces' conf)]
+--        ++ [("M-S-" ++ show k, windows $ onCurrentScreen W.shift i) | (k, i) <- zip [1 .. 9] (workspaces' conf)]
+
+--        ++ [("M-S-" ++ show k, windows $ onCurrentScreen W.view i . W.shift i) | (k, i) <- zip [1 .. 9] (workspaces' conf)]
         -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
 
+
+myScreenKeys conf@(XConfig {XMonad.modMask = myModMask}) = M.fromList $
+        [
+         -- workspaces are distinct by screen
+          ((m .|. mod4Mask, k), windows $ onCurrentScreen f i)
+               | (i, k) <- zip (workspaces' conf) ([xK_1 .. xK_9] ++ [xK_0])
+               , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+        ] ++ [
+         -- swap screen order
+         ((m .|. mod4Mask, key), screenWorkspace sc >>= flip whenJust (windows . f)) | (key, sc) <- zip [xK_w, xK_e, xK_r] [0,1,2] , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+
+replaceWorkspaceName :: String -> String
+replaceWorkspaceName wsName = replace "0_" "L" $ replace "1_" "R"  wsName
+
+
 ------------------------------------------------------------------------
 -- MAIN
-------------------------------------------------------------------------
+-----------------------------------------------------------------------
+--
+--
+--
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -728,7 +759,7 @@ main = do
 --    xmproc1 <- spawnPipe "xmobar -x 1 ~/.xmonad/xmobarrc/xmobarrc2"
 --    xmproc2 <- spawnPipe "xmobar -x 2 ~/.xmonad/xmobarrc/xmobarrc1"
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh def
+    xmonad $ ewmh def 
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
         -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
@@ -743,20 +774,22 @@ main = do
         , startupHook        = myStartupHook
         , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
         , workspaces         = myWorkspaces
+        , focusFollowsMouse  = False
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
+        , keys               = myScreenKeys
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x -- >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" "" .clickable               -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#F07178" "" .clickable       -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
+                        , ppCurrent = xmobarColor "#c3e88d" "" . replaceWorkspaceName . wrap "[" "]"-- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#c3e88d" "" . replaceWorkspaceName . clickable              -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . replaceWorkspaceName . wrap "*" "" . clickable  -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#F07178" "" . replaceWorkspaceName . clickable      -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 100     -- Title of active window in xmobar
                         , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                        , ppUrgent = xmobarColor "#C45500" "" . replaceWorkspaceName . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        , ppSort     = ppSort xmobarPP
                         }
-        } `additionalKeysP` myKeys
-
+        } `additionalKeysP` myKeys 
