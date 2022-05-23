@@ -193,7 +193,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 -- two values in each list (see myAppGrid, myBookmarkGrid and myConfigGrid below).
 myApplications :: [(String, String, String)]
 myApplications = [ ("Pluma", "pluma", "Pluma text editor")
-                 , ("Gmail", "google-chrome-stable app=https://gmail.com", "Gmail App")
+                 , ("Gmail", "google-chrome-stable --app=https://gmail.com", "Gmail App")
                  , ("VLC", "vlc", "A video and audio player")
                  , ("LibreOffice Writer", "lowriter", "A fully featured word processor")
                  , ("Google Chrome", "google-chrome-stable", "Google chrome web browser")
