@@ -568,7 +568,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                -- I've commented out the layouts I don't use.
                myDefaultLayout = noBorders monocle
                                  ||| tall
-                                 ||| magnify
+                                 ||| Main.magnify
                                  ||| floats
                                  ||| grid
                                  ||| noBorders tabs
