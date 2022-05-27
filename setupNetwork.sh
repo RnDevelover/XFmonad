@@ -7,4 +7,5 @@ echo "net.ipv6.conf.tun0.disable_ipv6 = 1" >> /etc/sysctl.conf
 echo "net.ipv6.conf.all.disable_ipv6 = 1">> /etc/sysctl.d/70-disable-ipv6.conf
 sudo sysctl -p -f /etc/sysctl.d/70-disable-ipv6.conf
 service networking restart
-service NetworkManager restart 
+service NetworkManager restart
+sleep 10

@@ -33,7 +33,7 @@ mv .xinitrc .xinitrc.bak
 mv .xsession .xsession.bak
 ln -s .xmonad/.xinitrc
 ln -s .xmonad/.xsession
-echo "Xft.dpi: 120" >> .Xresources
+echo "Xft.dpi: 96" >> .Xresources
 echo "alias ls='ls --color=always'" >> .bashrc
 cd ~/.xmonad
-./xmonad --recompile
+./build

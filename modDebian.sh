@@ -27,11 +27,11 @@ mkdir ~/.local/bin
 cd $CWD
 ./modContinue.sh
 sudo ./setupNetwork.sh
-echo "defaults.pcm.card 1">/etc/asound.conf
-echo "defaults.ctl.card 1">>/etc/asound.conf
+sudo sh -c 'echo "defaults.pcm.card 1">/etc/asound.conf'
+sudo sh -c 'echo "defaults.ctl.card 1">>/etc/asound.conf'
 echo "export QT_QPA_PLATFORMTHEME=gtk2" >> ~/.profile
-mkdir .config
-cd .config
+mkdir ~/.config
+cd ~/.config
 mkdir dunst
 cd dunst
 ln -s ~/.xmonad/dunstrc/dunstrc
